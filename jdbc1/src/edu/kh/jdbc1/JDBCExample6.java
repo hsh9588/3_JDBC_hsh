@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 import edu.kh.jdbc1.model.vo.Employee;
 
-public class JDBCExampl6 {
+public class JDBCExample6 {
 	public static void main(String[] args) {
 		// 입사일을 입력("2022-09-06") 받아
 		// 입력 받은 값 보다 먼저 입사한 사람의
