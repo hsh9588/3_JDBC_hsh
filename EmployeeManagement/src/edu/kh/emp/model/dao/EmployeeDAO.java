@@ -405,8 +405,8 @@ public class EmployeeDAO {
 			
 			result = pstmt.executeUpdate();
 			
-			if (result == 0) conn.rollback();
-			else conn.commit();
+			if (result > 0) conn.commit();
+			else  conn.rollback();
 
 		} catch (Exception e) {
 			e.printStackTrace();
