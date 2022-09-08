@@ -7,7 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.kh.emp.model.vo.Employee;
 
@@ -424,4 +427,211 @@ public class EmployeeDAO {
 		return result;
 	}
 
+	/** 입력 받은 부서와 일치하는 모든 사원 정보 조회
+	 * @param jobName
+	 * @return empList
+	 */
+	public List<Employee> selectDeptEmp(String departmentTitle) {
+		
+		List<Employee> empList = new ArrayList<>();
+		
+		try {
+			Class.forName(driver);
+			
+			conn = DriverManager.getConnection(url, user, pw);
+			
+			String sql = "SELECT EMP_ID, EMP_NAME, EMP_NO, EMAIL, PHONE, "
+					+ "NVL(DEPT_TITLE, '부서없음') DEPT_TITLE, JOB_NAME, SALARY "
+					+ " FROM EMPLOYEE E"
+					+ " NATURAL JOIN JOB J"
+					+ " LEFT JOIN DEPARTMENT D ON (DEPT_CODE = DEPT_ID)"
+					+ " WHERE NVL(DEPT_TITLE, '부서없음') = '" + departmentTitle + "'";
+			
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				
+				int empId = rs.getInt("EMP_ID");
+				String empName = rs.getString("EMP_NAME");
+				String empNo = rs.getString("EMP_NO");
+				String email = rs.getString("EMAIL");
+				String phone = rs.getString("PHONE");
+				String jobName = rs.getString("JOB_NAME");
+				int salary = rs.getInt("SALARY");
+				
+				Employee emp = new Employee(empId, empName, empNo, email, phone, departmentTitle, jobName, salary);
+				
+				empList.add(emp);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (stmt != null) stmt.close();
+				if (conn != null) conn.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return empList;
+	}
+
+	/**
+	 * @param salary
+	 * @return empList
+	 */
+	public List<Employee> selectSalaryEmp(int inputSalary) {
+		
+		List<Employee> empList = new ArrayList<>();
+		try {
+			Class.forName(driver);
+			
+			conn = DriverManager.getConnection(url, user, pw);
+			
+			String sql = "SELECT EMP_ID, EMP_NAME, EMP_NO, EMAIL, PHONE, "
+					+ "NVL(DEPT_TITLE, '부서없음') DEPT_TITLE, JOB_NAME, SALARY"
+					+ " FROM EMPLOYEE E"
+					+ " NATURAL JOIN JOB J"
+					+ " LEFT JOIN DEPARTMENT D ON (DEPT_CODE = DEPT_ID)"
+					+ " WHERE SALARY > ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, inputSalary);
+			
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+				int empId = rs.getInt("EMP_ID");
+				String empName = rs.getString("EMP_NAME");
+				String empNo = rs.getString("EMP_NO");
+				String email = rs.getString("EMAIL");
+				String phone = rs.getString("PHONE");
+				String departmentTitle = rs.getString("DEPT_TITLE");
+				String jobName = rs.getString("JOB_NAME");
+				int salary = rs.getInt("SALARY");
+			
+				
+				Employee emp = new Employee(empId, empName, empNo, email, phone, departmentTitle, jobName, salary);
+				
+				empList.add(emp);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (stmt != null) stmt.close();
+				if (conn != null) conn.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return empList;
+	}
+
+	/** 부서별 급여 합 전체 조회
+	 * @return deptMap
+	 */
+	public LinkedHashMap<String, Integer> selectDeptTotalSalary() {
+		
+		LinkedHashMap<String, Integer> deptMap = new LinkedHashMap<>();
+		
+		try {
+			Class.forName(driver);
+			
+			conn = DriverManager.getConnection(url, user, pw);
+			
+			String sql = "SELECT NVL(DEPT_CODE, '부서없음') DEPT_CODE, SUM(SALARY) SUMSALARY"
+					+ " FROM EMPLOYEE E"
+					+ " GROUP BY DEPT_CODE"
+					+ " ORDER BY 1";
+			
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				
+				String deptCode = rs.getString("DEPT_CODE");
+				int sumSalary = rs.getInt("SUMSALARY");
+				
+				
+				deptMap.put(deptCode, sumSalary);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (stmt != null) stmt.close();
+				if (conn != null) conn.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return deptMap;
+	}
+
+	/** 직급별 급여 평균 조회
+	 * @return jobMap
+	 */
+	public LinkedHashMap<String, Double> selectJobAvgSalary() {
+		
+		LinkedHashMap<String, Double> jobMap = new LinkedHashMap<>();
+		
+		try {
+			Class.forName(driver);
+			
+			conn = DriverManager.getConnection(url, user, pw);
+			
+			String sql = "SELECT JOB_NAME, ROUND(AVG(SALARY), 1) AS AVGSALARY"
+					+ " FROM EMPLOYEE E"
+					+ " NATURAL JOIN JOB"
+					+ " GROUP BY JOB_NAME";
+			
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				
+				String jobName = rs.getString("JOB_NAME");
+				double avgSalary = rs.getDouble("AVGSALARY");
+				
+				
+				jobMap.put(jobName, avgSalary);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) rs.close();
+				if (stmt != null) stmt.close();
+				if (conn != null) conn.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return jobMap;
+	}
+	
 }
