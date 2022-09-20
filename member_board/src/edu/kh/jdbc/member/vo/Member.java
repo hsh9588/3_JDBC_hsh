@@ -87,4 +87,6 @@ public class Member {
 	public void setSecessionFlag(String secessionFlag) {
 		this.secessionFlag = secessionFlag;
 	}
+	
+	
 }

@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import edu.kh.jdbc.main.model.service.MainService;
+import edu.kh.jdbc.member.view.MemberView;
 import edu.kh.jdbc.member.vo.Member;
 
 // 메인 화면
@@ -14,9 +15,13 @@ public class MainView {
 	private MainService service = new MainService();
 	
 	// 로그인된 회원 정보를 저장한 객체를 참조하는 참조변수
-	private Member loginMember = null;
+//	private Member loginMember = null;
+	public static Member loginMember = null;
 	// -> 로그인 x == null
 	// => 로그인 o != null
+	
+	// 회원 기능 메뉴 객체 생성
+	private MemberView memberView = new MemberView();
 	
 	/**
 	 * 메인 메뉴 출력 메서드
@@ -69,7 +74,7 @@ public class MainView {
 					System.out.println();
 					
 					switch (input) {
-					case 1: break;
+					case 1: memberView.memberMenu(loginMember); break;
 					case 2: break;
 					case 0: 
 						loginMember = null;
