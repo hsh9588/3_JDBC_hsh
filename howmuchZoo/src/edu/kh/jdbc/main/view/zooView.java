@@ -3,6 +3,7 @@ package edu.kh.jdbc.main.view;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import edu.kh.jdbc.buy.view.buyView;
 import edu.kh.jdbc.main.model.service.zooService;
 
 // 메인 화면
@@ -11,6 +12,8 @@ public class zooView {
 	private Scanner sc = new Scanner(System.in);
 	
 	private zooService service = new zooService();
+	
+	private buyView buyView = new buyView();
 	
 	public void startMenu() {
 		
@@ -35,13 +38,13 @@ public class zooView {
 				System.out.println();
 				
 				switch (input) {
-				case 1: break;
+				case 1: buyView.buyMenu(); break;
 				case 2: break;
 				case 3: break;
 				case 4: break;
 				case 5: break;
 				case 0: System.out.println("< 안녕히가세요. >"); break;
-				default : System.out.println("< 메뉴 선택해주세요. >");
+				default : System.out.println("< 메뉴에 작성된 번호를 입력해주세요. >");
 				}
 				
 			} catch (InputMismatchException e) {
@@ -68,4 +71,5 @@ public class zooView {
 		
 		return result;
 	}
+	
 }

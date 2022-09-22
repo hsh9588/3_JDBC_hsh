@@ -1,4 +1,4 @@
-package edu.kh.jdbc;
+package edu.kh.jdbc.common;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

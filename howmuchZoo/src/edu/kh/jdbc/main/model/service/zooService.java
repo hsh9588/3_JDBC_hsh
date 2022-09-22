@@ -1,7 +1,6 @@
 package edu.kh.jdbc.main.model.service;
 
-// service 데이터 가공, 트랜잭션 제어 처리
-import static edu.kh.jdbc.JDBCTemplate.*;
+import static edu.kh.jdbc.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 
