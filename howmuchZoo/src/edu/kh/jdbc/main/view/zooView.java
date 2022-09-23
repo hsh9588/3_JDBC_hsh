@@ -15,6 +15,8 @@ public class zooView {
 	
 	private buyView buyView = new buyView();
 	
+	public static int choiceANM = 0;
+	
 	public void startMenu() {
 		
 		int input = -1;
@@ -38,7 +40,7 @@ public class zooView {
 				System.out.println();
 				
 				switch (input) {
-				case 1: buyView.buyMenu(); break;
+				case 1: buyMenu(); break;
 				case 2: break;
 				case 3: break;
 				case 4: break;
@@ -70,6 +72,16 @@ public class zooView {
 		}
 		
 		return result;
+	}
+	
+	private void buyMenu() {
+		
+		if (choiceANM == 0) {
+			buyView.buyMenu();
+			
+		} else {
+			System.out.println("현재 동물을 가지고 있습니다.");
+		}
 	}
 	
 }

@@ -1,13 +1,13 @@
 package edu.kh.jdbc.buy.vo;
 
-public class Cat {
+public class Animal {
 	
 	private String animalType;
 	private String sellDate;
 	private int point;
 	private int price;
 	
-	public void Cat() {}
+	public void Animal() {}
 
 	public String getAnimalType() {
 		return animalType;
