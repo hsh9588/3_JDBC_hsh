@@ -9,4 +9,14 @@
 	FROM MONEY
 	</entry>
 	
+	<entry key = "buyUpdateMoney">
+	UPDATE MONEY SET
+	HANDMONEY = HANDMONEY - ?
+	</entry>
+	
+	<entry key = "SellPrice">
+	UPDATE MONEY SET
+	HANDMONEY = HANDMONEY + ?
+	</entry>
+	
 </properties>

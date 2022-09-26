@@ -3,19 +3,20 @@ package edu.kh.jdbc.main.view;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import edu.kh.jdbc.buy.view.buyView;
-import edu.kh.jdbc.main.model.service.zooService;
+import edu.kh.jdbc.buy.view.BuyView;
+import edu.kh.jdbc.main.model.service.ZooService;
 
 // 메인 화면
-public class zooView {
+public class ZooView {
 	
 	private Scanner sc = new Scanner(System.in);
 	
-	private zooService service = new zooService();
+	private ZooService zService = new ZooService();
 	
-	private buyView buyView = new buyView();
+	private BuyView buyView = new BuyView();
 	
-	public static int choiceANM = 0;
+	public static int ChoiceANM = 0;
+	public static int RaisePoint = 0;
 	
 	public void startMenu() {
 		
@@ -41,7 +42,7 @@ public class zooView {
 				
 				switch (input) {
 				case 1: buyMenu(); break;
-				case 2: break;
+				case 2: SellAnimal(ChoiceANM, RaisePoint); break;
 				case 3: break;
 				case 4: break;
 				case 5: break;
@@ -65,23 +66,46 @@ public class zooView {
 		
 		try {
 			
-			 result = service.moneyInHand();
+			 result = zService.moneyInHand();
 			
 		} catch (Exception e) {
 			System.out.println("\n< 소지금 불러오는데 실패했습니다. >\n");
 		}
-		
 		return result;
 	}
 	
+	/**
+	 * 동물 구매 메뉴 화면
+	 */
 	private void buyMenu() {
 		
-		if (choiceANM == 0) {
+		if (ChoiceANM == 0) {
 			buyView.buyMenu();
 			
 		} else {
 			System.out.println("현재 동물을 가지고 있습니다.");
 		}
+	}
+	
+	/** 동물 판매 ( 소지금 추가 동물선택과 점수 초기화 )
+	 * @param choiceANM
+	 * @param raisePoint
+	 */
+	private void SellAnimal(int choiceANM, int raisePoint) {
+		
+		try {
+			
+			if (ZooView.RaisePoint > 0 && ZooView.ChoiceANM != 0) {
+				
+				zService.SellAnimal(ZooView.ChoiceANM, ZooView.RaisePoint);
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("동물 판매 중 예외 발생");
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
