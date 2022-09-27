@@ -80,36 +80,36 @@ public class ZooDAO {
 			
 			switch (choiceANM) {
 			case 1: AnimalType += "COW";
-				if (raisePoint > 100) {
+				if (raisePoint >= 100) {
 					SellPrice = 20000;
-				} else if (raisePoint > 50) {
+				} else if (raisePoint >= 50) {
 					SellPrice = 15000;
 				} else {
 					SellPrice = 11000;
 				}
 				break;
 			case 2: AnimalType += "PIG";
-				if (raisePoint > 100) {
+				if (raisePoint >= 100) {
 					SellPrice = 10000;
-				} else if (raisePoint > 50) {
+				} else if (raisePoint >= 50) {
 					SellPrice = 8000;
 				} else {
 					SellPrice = 6000;
 				}
 				break;
 			case 3: AnimalType += "DOG";
-				if (raisePoint > 100) {
+				if (raisePoint >= 100) {
 					SellPrice = 5000;
-				} else if (raisePoint > 50) {
+				} else if (raisePoint >= 50) {
 					SellPrice = 3500;
 				} else {
 					SellPrice = 3000;
 				}
 				break;
 			case 4: AnimalType += "CAT";
-				if (raisePoint > 100) {
+				if (raisePoint >= 100) {
 					SellPrice = 5000;
-				} else if (raisePoint > 50) {
+				} else if (raisePoint >= 50) {
 					SellPrice = 3500;
 				} else {
 					SellPrice = 3000;
@@ -148,36 +148,36 @@ public class ZooDAO {
 			
 			switch (choiceANM) {
 			case 1:
-				if (raisePoint > 100) {
+				if (raisePoint >= 100) {
 					SellPrice = 20000;
-				} else if (raisePoint > 50) {
+				} else if (raisePoint >= 50) {
 					SellPrice = 15000;
 				} else {
 					SellPrice = 11000;
 				}
 				break;
 			case 2:
-				if (raisePoint > 100) {
+				if (raisePoint >= 100) {
 					SellPrice = 10000;
-				} else if (raisePoint > 50) {
+				} else if (raisePoint >= 50) {
 					SellPrice = 8000;
 				} else {
 					SellPrice = 6000;
 				}
 				break;
 			case 3:
-				if (raisePoint > 100) {
+				if (raisePoint >= 100) {
 					SellPrice = 5000;
-				} else if (raisePoint > 50) {
+				} else if (raisePoint >= 50) {
 					SellPrice = 3500;
 				} else {
 					SellPrice = 3000;
 				}
 				break;
 			case 4:
-				if (raisePoint > 100) {
+				if (raisePoint >= 100) {
 					SellPrice = 5000;
-				} else if (raisePoint > 50) {
+				} else if (raisePoint >= 50) {
 					SellPrice = 3500;
 				} else {
 					SellPrice = 3000;

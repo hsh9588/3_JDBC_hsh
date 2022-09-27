@@ -1,8 +1,15 @@
 package edu.kh.jdbc.main.view;
 
+//import java.awt.Dimension;
+//import java.awt.Font;
+//import java.awt.Toolkit;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+
+//import javax.swing.JFrame;
+//import javax.swing.JLabel;
+//import javax.swing.SwingConstants;
 
 import edu.kh.jdbc.buy.view.BuyView;
 import edu.kh.jdbc.buy.vo.Animal;
@@ -32,7 +39,7 @@ public class ZooView {
 				System.out.println("1. 동물 산다.");
 				System.out.println("2. 동물 판다.");
 				System.out.println("3. 기록 본다.");
-				System.out.println("4. 대출 한다.");
+				System.out.println("4. 도 움 말 ");
 				System.out.println("0. 종료 한다.");
 				
 				System.out.print("\n메뉴 선택 : ");
@@ -46,7 +53,7 @@ public class ZooView {
 				case 1: buyMenu(); break;
 				case 2: SellAnimal(ChoiceANM, RaisePoint); break;
 				case 3: CheckRecord(); break;
-				case 4: break;
+				case 4: HelpPrint(); break;
 				case 0: System.out.println("< 안녕히가세요. >"); break;
 				default : System.out.println("< 메뉴에 작성된 번호를 입력해주세요. >");
 				}
@@ -103,7 +110,6 @@ public class ZooView {
 				ZooView.RaisePoint = 0;
 				ZooView.ChoiceANM = 0;
 				
-				
 			} else {
 				
 				System.out.println("현재 판매할 동물이 없습니다.");
@@ -136,6 +142,7 @@ public class ZooView {
 					
 					System.out.printf("\n < 얼마쥬 ( How much zoo ) 기록 조회창 > \n     소지금 : %,d원\n\n", 
 							moneyInHand() );
+							
 					System.out.println("1.   소   판매 기록");
 					System.out.println("2.  돼지  판매 기록");
 					System.out.println("3. 강아지 판매 기록");
@@ -181,5 +188,38 @@ public class ZooView {
 			}
 			
 		} while (input != 0);
+	}
+	
+//	private void test() {
+//		
+//		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+//			public void run() {
+//				JFrame frame = new JFrame("도움말");
+//				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//				frame.setPreferredSize(new Dimension(800, 600));
+//				JLabel label = new JLabel("<HTML><center>안녕하세요.<br>얼마쥬의 도움말입니다.<br>"
+//						+ "이 게임은 5일동안 5번의 행동 횟수로<br>"
+//						+ "선택한 동물을 키워서 높은 점수로<br>"
+//						+ "판매하는 게임입니다.<br>그럼 충분히 즐겨주세요.</center></HTML>", SwingConstants.CENTER);
+//				label.setFont(new Font("돋움", Font.PLAIN, 20));
+//				frame.getContentPane().add(label);
+//				Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+//				frame.setLocation(dim.width/2-400, dim.height/2-300/2);
+//				
+//				frame.pack();
+//				frame.setVisible(true);
+//				
+//			}
+//		});
+//		
+//	}
+	
+	private void HelpPrint() {
+		System.out.println("*******************************************************");
+		System.out.println("안녕하세요. 얼마쥬의 도움말입니다.");
+		System.out.println("이 게임은 5일동안 하루마다 5번의 행동 횟수로");
+		System.out.println("선택한 동물을 키워서 높은 점수로 판매하는 게임입니다. ");
+		System.out.println("그럼 충분히 즐겨주세요.");
+		System.out.println("*******************************************************");
 	}
 }
