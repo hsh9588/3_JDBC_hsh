@@ -178,11 +178,8 @@ public class ZooView {
 					System.out.println("기록 확인 중 예외 발생");
 					e.printStackTrace();
 				}
-				
 			}
 			
 		} while (input != 0);
-		
 	}
-	
 }
