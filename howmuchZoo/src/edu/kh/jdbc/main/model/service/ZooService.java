@@ -12,7 +12,7 @@ public class ZooService {
 	
 	private ZooDAO dao = new ZooDAO();
 
-	/** 소지금 반환 서비스
+	/** 현재 소지금 출력 서비스
 	 * @return
 	 */
 	public int moneyInHand() throws Exception {
@@ -50,8 +50,6 @@ public class ZooService {
 	 * @throws Exception
 	 */
 	public void SellAnimal(int choiceANM, int raisePoint) throws Exception {
-		
-//		System.out.println(choiceANM +" 와 "+ raisePoint);
 		
 		Connection conn = getConnection();
 		
