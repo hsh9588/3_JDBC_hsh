@@ -25,7 +25,7 @@ public class BuyView {
 		do {
 			
 			try {
-				System.out.printf("\n < 얼마쥬 ( How much zoo ) - 동물 목록 - > \n	소지금 : %,d원\n\n", 
+				System.out.printf("\n < 얼마쥬 ( How much zoo ) 동물 목록 > \n     소지금 : %,d원\n\n", 
 						zService.moneyInHand() );
 				System.out.println("1.   소   가격 : 10,000원");
 				System.out.println("2.  돼지  가격 : 6,000원");
@@ -43,7 +43,7 @@ public class BuyView {
 				
 				switch (input) {
 				case 1: case 2:  case 3: case 4: input = buy(input); break;
-				case 0: break;
+				case 0: System.out.println("시작화면으로 돌아갑니다."); break;
 				default : System.out.println("< 메뉴 번호만 입력해주세요. >");
 				}
 				

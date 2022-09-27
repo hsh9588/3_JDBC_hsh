@@ -2,6 +2,7 @@ package edu.kh.jdbc.buy.vo;
 
 public class Animal {
 	
+	private int Ranking;
 	private String animalType;
 	private String sellDate;
 	private int point;
@@ -39,6 +40,14 @@ public class Animal {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public int getRanking() {
+		return Ranking;
+	}
+
+	public void setRanking(int ranking) {
+		Ranking = ranking;
 	}
 
 }

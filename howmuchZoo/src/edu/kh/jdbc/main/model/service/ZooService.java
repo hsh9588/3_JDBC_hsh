@@ -3,7 +3,9 @@ package edu.kh.jdbc.main.model.service;
 import static edu.kh.jdbc.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.List;
 
+import edu.kh.jdbc.buy.vo.Animal;
 import edu.kh.jdbc.main.model.dao.ZooDAO;
 
 public class ZooService {
@@ -59,6 +61,23 @@ public class ZooService {
 		else rollback(conn);
 		
 		close(conn);
+		
+	}
+
+	/** 기록 확인(총합 기록 포함) 서비스
+	 * @param animalType 
+	 * @return animalList
+	 * @throws Exception
+	 */
+	public List<Animal> CheckRecord(int animalType) throws Exception {
+		
+		Connection conn = getConnection();
+		
+		List<Animal> animalList = dao.CheckRecord(conn, animalType);
+		
+		close(conn);
+		
+		return animalList;
 		
 	}
 

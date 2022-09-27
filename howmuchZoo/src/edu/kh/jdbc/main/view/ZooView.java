@@ -1,9 +1,11 @@
 package edu.kh.jdbc.main.view;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import edu.kh.jdbc.buy.view.BuyView;
+import edu.kh.jdbc.buy.vo.Animal;
 import edu.kh.jdbc.main.model.service.ZooService;
 
 // 메인 화면
@@ -25,7 +27,7 @@ public class ZooView {
 		do {
 			try {
 				
-				System.out.printf("\n < 얼마쥬 ( How much zoo ) > \n	소지금 : %,d원\n\n", 
+				System.out.printf("\n < 얼마쥬 ( How much zoo ) > \n     소지금 : %,d원\n\n", 
 						moneyInHand() );
 				System.out.println("1. 동물 산다.");
 				System.out.println("2. 동물 판다.");
@@ -43,9 +45,8 @@ public class ZooView {
 				switch (input) {
 				case 1: buyMenu(); break;
 				case 2: SellAnimal(ChoiceANM, RaisePoint); break;
-				case 3: break;
+				case 3: CheckRecord(); break;
 				case 4: break;
-				case 5: break;
 				case 0: System.out.println("< 안녕히가세요. >"); break;
 				default : System.out.println("< 메뉴에 작성된 번호를 입력해주세요. >");
 				}
@@ -99,12 +100,88 @@ public class ZooView {
 				
 				zService.SellAnimal(ZooView.ChoiceANM, ZooView.RaisePoint);
 				
+				ZooView.RaisePoint = 0;
+				ZooView.ChoiceANM = 0;
+				
+				
+			} else {
+				
+				System.out.println("현재 판매할 동물이 없습니다.");
 			}
 			
 		} catch (Exception e) {
 			System.out.println("동물 판매 중 예외 발생");
 			e.printStackTrace();
 		}
+		
+	}
+	
+	/**
+	 * 기록 확인(총합 기록 포함)
+	 */
+	private void CheckRecord() {
+		
+		int input = -1;
+		int AnimalType = 0;
+		
+		do {
+			
+			if (ZooView.RaisePoint > 0 && ZooView.ChoiceANM != 0) {
+				
+				System.out.println("동물을 판매한 후에 이용해주세요.");
+				
+			} else {
+				
+				try {
+					
+					System.out.printf("\n < 얼마쥬 ( How much zoo ) 기록 조회창 > \n     소지금 : %,d원\n\n", 
+							moneyInHand() );
+					System.out.println("1.   소   판매 기록");
+					System.out.println("2.  돼지  판매 기록");
+					System.out.println("3. 강아지 판매 기록");
+					System.out.println("4. 고양이 판매 기록");
+					System.out.println("5.  전체  판매 기록");
+					System.out.println("0. 종료 한다.");
+					
+					System.out.print("\n메뉴 선택 : ");
+					input = sc.nextInt();
+					sc.nextLine();
+					
+					System.out.println();
+					
+					switch (input) {
+					case 1: AnimalType = 1; break;
+					case 2: AnimalType = 2; break;
+					case 3: AnimalType = 3; break;
+					case 4: AnimalType = 4; break;
+					case 5: AnimalType = 5; break;
+					case 0: System.out.println("메인메뉴로 돌아갑니다."); break;
+					default : System.out.println("메뉴에 작성된 번호를 입력해주세요.");
+					}
+					
+					if (input == 0) break;
+						
+					List<Animal> animalList = zService.CheckRecord(AnimalType);
+					
+					if (animalList.isEmpty()) {
+						System.out.println("기록이 존재하지 않습니다.");
+						
+					} else {
+						System.out.println("| 순위 | 종  류 | 점수 | 판매가격 |   기록  날짜   |");
+						for (Animal a : animalList) {
+							System.out.printf("|   %d  | %s |  %3d | %,6d원 | %s |\n", a.getRanking(), a.getAnimalType(), a.getPoint(),
+									a.getPrice(), a.getSellDate());
+						}
+					}
+					
+				} catch (Exception e) {
+					System.out.println("기록 확인 중 예외 발생");
+					e.printStackTrace();
+				}
+				
+			}
+			
+		} while (input != 0);
 		
 	}
 	

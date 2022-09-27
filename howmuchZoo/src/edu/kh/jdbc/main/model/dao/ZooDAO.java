@@ -7,7 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+
+import edu.kh.jdbc.buy.vo.Animal;
 
 // DAO : DB 연결용 객체
 public class ZooDAO {
@@ -196,6 +200,78 @@ public class ZooDAO {
 		}
 		
 		return result;
+	}
+
+	/** 기록 확인(총합 기록 포함) DAO 
+	 * @param conn
+	 * @param animalType
+	 * @return animalList
+	 * @throws Exception
+	 */
+	public List<Animal> CheckRecord(Connection conn, int animalType) throws Exception {
+		
+		List<Animal> animalList = new ArrayList<>();
+		String Type = "";
+		String sql = "";
+		
+		try {
+			
+			switch (animalType) {
+			case 1: Type += "COW"; 
+			sql = "SELECT ROWNUM, DECODE(ANIMAL_TYPE, 1, '  소  ', 2, '돼  지', 3, '강아지', 4, '고양이') AS TYPE, "
+					+ "POINT, PRICE, TO_CHAR(SELL_DATE, 'YY/MM/DD HH24:MI') AS RECORD "
+					+ "FROM(SELECT ANIMAL_TYPE, SELL_DATE, POINT, PRICE "
+					+ "FROM " + Type + " "
+					+ "ORDER BY POINT DESC "
+					+ ")"; break;
+			case 2: Type += "PIG"; 
+			sql = "SELECT ROWNUM, DECODE(ANIMAL_TYPE, 1, '  소  ', 2, '돼  지', 3, '강아지', 4, '고양이') AS TYPE, "
+					+ "POINT, PRICE, TO_CHAR(SELL_DATE, 'YY/MM/DD HH24:MI') AS RECORD "
+					+ "FROM(SELECT ANIMAL_TYPE, SELL_DATE, POINT, PRICE "
+					+ "FROM " + Type + " "
+					+ "ORDER BY POINT DESC "
+					+ ")"; break;
+			case 3: Type += "DOG"; 
+			sql = "SELECT ROWNUM, DECODE(ANIMAL_TYPE, 1, '  소  ', 2, '돼  지', 3, '강아지', 4, '고양이') AS TYPE, "
+					+ "POINT, PRICE, TO_CHAR(SELL_DATE, 'YY/MM/DD HH24:MI') AS RECORD "
+					+ "FROM(SELECT ANIMAL_TYPE, SELL_DATE, POINT, PRICE "
+					+ "FROM " + Type + " "
+					+ "ORDER BY POINT DESC "
+					+ ")"; break;
+			case 4: Type += "CAT"; 
+			sql = "SELECT ROWNUM, DECODE(ANIMAL_TYPE, 1, '  소  ', 2, '돼  지', 3, '강아지', 4, '고양이') AS TYPE, "
+					+ "POINT, PRICE, TO_CHAR(SELL_DATE, 'YY/MM/DD HH24:MI') AS RECORD "
+					+ "FROM(SELECT ANIMAL_TYPE, SELL_DATE, POINT, PRICE "
+					+ "FROM " + Type + " "
+					+ "ORDER BY POINT DESC "
+					+ ")"; break;
+			case 5: sql = prop.getProperty("CheckRecord"); break;
+			default : System.out.println("기록 확인 DAO 오류 발생");
+			}
+			
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+			
+			while (rs.next()) {
+				
+				Animal animal = new Animal();
+				
+				animal.setRanking(rs.getInt("ROWNUM"));
+				animal.setAnimalType(rs.getString("TYPE"));
+				animal.setPoint(rs.getInt("POINT"));
+				animal.setPrice(rs.getInt("PRICE"));
+				animal.setSellDate(rs.getString("RECORD"));
+				
+				animalList.add(animal);
+			}
+			
+		} finally {
+			close(rs);
+			close(stmt);
+		}
+		return animalList;
+		
 	}
 
 
