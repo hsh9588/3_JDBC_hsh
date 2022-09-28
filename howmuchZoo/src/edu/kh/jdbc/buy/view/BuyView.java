@@ -26,7 +26,7 @@ public class BuyView {
 			
 			try {
 				System.out.printf("\n < 얼마쥬 ( How much zoo ) 동물 목록 > \n     소지금 : %,d원\n\n", 
-						zService.moneyInHand() );
+						zService.moneyInHand());
 				System.out.println("1.   소   가격 : 10,000원");
 				System.out.println("2.  돼지  가격 : 6,000원");
 				System.out.println("3. 강아지 가격 : 3,000원");
@@ -43,7 +43,10 @@ public class BuyView {
 				
 				switch (input) {
 				case 1: case 2:  case 3: case 4: input = buy(input); break;
-				case 0: System.out.println("시작화면으로 돌아갑니다."); break;
+				case 0: System.out.println("시작화면으로 돌아갑니다."); 
+				ZooView.ChoiceANM = 0;
+				ZooView.RaisePoint = 0;
+					break;
 				default : System.out.println("< 메뉴 번호만 입력해주세요. >");
 				}
 				
@@ -64,6 +67,14 @@ public class BuyView {
 	private int buy(int input) {
 		
 		ZooView.ChoiceANM = input; // 1
+		
+		switch (input) {
+		case 1: System.out.println("소를 선택하셨습니다."); break;
+		case 2: System.out.println("돼지를 선택하셨습니다."); break;
+		case 3: System.out.println("강아지를 선택하셨습니다."); break;
+		case 4: System.out.println("고양이를를 선택하셨습니다."); break;
+		default : System.out.println("구매 후 동물 이름 출력 시 오류");
+		}
 		
 		try {
 			
